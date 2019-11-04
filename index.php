@@ -9,10 +9,7 @@
 </head>
 <body>
 
-<?php
-include 'include/affichage.php';
-?>
-<p id="test"></p>
+
 <form onsubmit="envoie()" id="formAjout">
 
     <label for="titre">Titre :</label>
@@ -30,15 +27,10 @@ include 'include/affichage.php';
     <input type="submit" id="btn_form" value="Ajouter">
 </form>
 
-<br>
-
-<form  onsubmit="suppression()">
-
-    <label for="titre_a_supprimer">Titre de l'élément à supprimer :</label>
-    <input name="titre_a_supprimer" type="text" id="titre_a_supprimer">
-
-    <input type="submit" id="btn_form_supprimer" value="Supprimer">
-</form>
+<?php
+include 'include/affichage.php';
+?>
+<p id="test"></p>
 
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/jquery-3.4.1.js"></script>

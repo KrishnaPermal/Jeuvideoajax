@@ -2,10 +2,12 @@
 
 if (isset($_POST["titre"]) AND !empty($_POST["titre"]) AND isset($_POST["editeur"]) AND !empty($_POST["editeur"]) AND isset($_POST["prix"]) AND !empty($_POST["prix"]) AND isset($_POST["resume"]) AND !empty($_POST["resume"]) )
 {
-	$titre = $_POST["titre"];
-	$editeur = $_POST["editeur"];
-	$prix = $_POST["prix"];
-	$resume = $_POST["resume"];
+	$jeu = array( //tableau contenant toutes les informations
+		'titre' => $_POST["titre"],
+		'editeur' => $_POST["editeur"],
+		'prix' => $_POST["prix"],
+		'resume' => $_POST["resume"],
+	);
 
 	try
 	{
@@ -16,15 +18,15 @@ if (isset($_POST["titre"]) AND !empty($_POST["titre"]) AND isset($_POST["editeur
 	        die('Erreur : ' . $e->getMessage());
 	}
 
-	$req = $bdd->prepare('INSERT INTO jeuVideo(titre, editeur, prix, resume) VALUES(:titre, :editeur, :prix, :resume)');
-	$req->execute(array(
-		'titre' => $titre,
-		'editeur' => $editeur,
-		'prix' => $prix,
-		'resume' => $resume,
-		));
+	$req = $bdd->prepare('INSERT INTO jeuVideo(titre, editeur, prix, resume) VALUES(:titre, :editeur, :prix, :resume)'); //prepare l'envoie à la base de donées
+	$req->execute( //envoie le tableau "$jeu"
+			$jeu
+		);
 
-	echo json_encode($_POST);
+	
+	$jeu["id"] = $bdd->lastInsertId(); //on recupere le dernier ID posté
+
+	echo json_encode($jeu);
 	exit;
 }
 else

@@ -7,13 +7,6 @@ function envoie() {
     var post_prix = $("#prix").val();
     var post_resume = $("#resume").val();
 
-    console.log(
-        post_titre,
-        post_editeur,
-        post_prix,
-        post_resume
-    )
-
     $.ajax({
         method: "POST", // la methode utilise par le forumalaire
         url: "ajout.php", //la cible du formulaire pour traitre
@@ -26,10 +19,7 @@ function envoie() {
         dataType: "json"
       })
     .done(function(data) {
-        console.log(data);
-        $('#test').append(
-            'Titre : ' + data.titre + '. Éditeur : ' + data.editeur + '. Prix : ' + data.prix + '. Resumer : ' + data.resume
-        );        
+        affichage(data);  //affichage les données (voire plus bas)
     })
     .fail(function() {
         alert("erreur 404");
@@ -38,5 +28,33 @@ function envoie() {
 
 
 function suppression(id) {
-    alert(id);
+
+    event.preventDefault(); //empeche le raffranchissement
+
+    $.ajax({
+       method: "POST", // la methode utilise par le forumalaire
+       url: "supprimer.php", //la cible du formulaire pour traitre
+       data: { 
+           id : id
+       },
+       dataType: "json" // le type de données qu'on envoi
+     })
+    .done(function(data) {
+        $("#jeu_"+data.id).fadeOut("slow"); //fais disparaitre les elements
+    })
+    .fail(function() {
+       alert("erreur 404 - js");
+    })
+};
+
+function affichage(data) { //fonction affichage (quand on "submit" le formulaire)
+    $('#test').append(
+        "<p>" +
+        'Titre : ' + data.titre +
+        '. Éditeur : ' + data.editeur +
+        '. Prix : ' + data.prix +
+        ' €. Resumer : ' + data.resume + '. ' 
+        + "<button onclick='suppression( " + data.id + " )'>Supprimer</button>"
+        + "</p>"
+    );
 }

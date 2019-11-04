@@ -8,17 +8,17 @@ catch (Exception $e)
         die('Erreur : ' . $e->getMessage());
 }
 
-$reponse = $bdd->query('SELECT * FROM jeuVideo');
+$reponse = $bdd->query('SELECT * FROM jeuVideo'); //selectionne dans la Base de donnée
 
-while ($donnees = $reponse->fetch())
+while ($donnees = $reponse->fetch()) //affiche les resultats de la Base de données
 {
 ?>
-    <p>
+    <p id="jeu_<?php echo $donnees['id'] ?>">
         Titre : <?php echo $donnees["titre"]; ?>.
-        Editeur : <?php echo $donnees["editeur"]; ?>.
+        Éditeur : <?php echo $donnees["editeur"]; ?>.
         Prix : <?php echo $donnees["prix"]; ?> €.
         Resumer : <?php echo $donnees["resume"]; ?>.
-        <button onclick='suppression( <?php echo $donnees["id"]; ?> )'>Remove</button>
+        <button onclick='suppression( <?php echo $donnees["id"]; ?> )'>Supprimer</button>
     </p>
 <?php
 }
