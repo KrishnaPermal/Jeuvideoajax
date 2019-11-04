@@ -48,8 +48,8 @@ function suppression(id) {
 };
 
 function affichage(data) { //fonction affichage (quand on "submit" le formulaire)
-    $('#test').append(
-        "<p>" +
+    $('#temporaire').append(
+        '<p id=jeu_' + data.id + '>' +
         'Titre : ' + data.titre +
         '. Éditeur : ' + data.editeur +
         '. Prix : ' + data.prix +

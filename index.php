@@ -30,7 +30,7 @@
 <?php
 include 'include/affichage.php';
 ?>
-<p id="test"></p>
+<p id="temporaire"></p>
 
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/jquery-3.4.1.js"></script>
